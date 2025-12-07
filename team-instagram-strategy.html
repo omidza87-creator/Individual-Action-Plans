@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Instagram Strategy | Veer & Sant</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .intro-section {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            padding: 40px;
+            border-radius: 16px;
+            margin-bottom: 50px;
+            border-left: 5px solid #667eea;
+        }
+
+        .intro-section h2 {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .intro-section p {
+            color: #4a5568;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .team-member {
+            margin-bottom: 60px;
+            padding: 40px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 2px solid #e2e8f0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.15);
+        }
+
+        .member-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .member-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-right: 25px;
+            flex-shrink: 0;
+        }
+
+        .member-info h3 {
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .member-role {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .analysis-card {
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid;
+        }
+
+        .strength-card {
+            background: #d1fae5;
+            border-left-color: #059669;
+        }
+
+        .opportunity-card {
+            background: #fef3c7;
+            border-left-color: #f59e0b;
+        }
+
+        .action-card {
+            background: #dbeafe;
+            border-left-color: #2563eb;
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title .emoji {
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+
+        .strength-card .card-title {
+            color: #047857;
+        }
+
+        .opportunity-card .card-title {
+            color: #d97706;
+        }
+
+        .action-card .card-title {
+            color: #1e40af;
+        }
+
+        .card-content {
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        .card-content ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .card-content li {
+            margin-bottom: 8px;
+        }
+
+        .priority-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 25px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .priority-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .priority-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .priority-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            background: white;
+        }
+
+        .priority-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .priority-high {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        .priority-medium {
+            background: #fed7aa;
+            color: #9a3412;
+        }
+
+        .priority-low {
+            background: #bfdbfe;
+            color: #1e3a8a;
+        }
+
+        .chart-container {
+            background: #f7fafc;
+            padding: 30px;
+            border-radius: 16px;
+            margin: 25px 0;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 250px;
+        }
+
+        .quote-section {
+            background: linear-gradient(135deg, #e0e7ff 0%, #ddd6fe 100%);
+            padding: 25px 30px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #6366f1;
+            font-style: italic;
+            color: #4c1d95;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .quote-section::before {
+            content: '"';
+            font-size: 3rem;
+            color: #6366f1;
+            opacity: 0.3;
+            position: absolute;
+            margin-left: -15px;
+            margin-top: -10px;
+        }
+
+        .footer {
+            background: #f7fafc;
+            padding: 40px;
+            text-align: center;
+            color: #718096;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .footer h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .footer p {
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+
+            .team-member {
+                padding: 25px 20px;
+            }
+
+            .member-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .member-avatar {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Personalized Instagram Strategy</h1>
+            <p>Individual Action Plans for Team Success</p>
+            <p class="subtitle">Veer & Sant Real Estate | Marketing Team</p>
+        </div>
+
+        <div class="content">
+            <div class="intro-section">
+                <h2>📋 Overview</h2>
+                <p>This document contains personalized strategies and actionable recommendations for each team member. Every person has unique strengths and opportunities. Focus on your specific action items to maximize your Instagram growth and establish authority in your niche.</p>
+                <p style="margin-top: 15px;"><strong>⚠️ Important Team-Wide Rule:</strong> Post 2-3 times per week MINIMUM. Mix your content types (reels, carousels, single posts). Some team members are posting 5 times per week - this is too much! Remember: consistency beats perfection, and content is king.</p>
+            </div>
+
+            <!-- TREVOR -->
+            <div class="team-member">
+                <div class="member-header">
+                    <div class="member-avatar">T</div>
+                    <div class="member-info">
+                        <h3>Trevor</h3>
+                        <p class="member-role">Property Management Specialist</p>
+                    </div>
+                </div>
+
+                <div class="quote-section">
+                    Property management is very little talked about. If you explain it more and give facts and training about it, you will come up very quickly. Everyone is talking about projects, areas, villas and buildings - there is very little talk about this topic, which is also needed.
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card strength-card">
+                        <div class="card-title"><span class="emoji">✅</span> Your Opportunity</div>
+                        <div class="card-content">
+                            <strong>Untapped Niche Market</strong>
+                            <ul>
+                                <li>Minimal competition in property management content</li>
+                                <li>High demand from property owners</li>
+                                <li>Everyone talks about buying - you talk about managing</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card opportunity-card">
+                        <div class="card-title"><span class="emoji">💡</span> Why This Works</div>
+                        <div class="card-content">
+                            <strong>You'll Stand Out Immediately</strong>
+                            <ul>
+                                <li>Buyers become owners who need management</li>
+                                <li>Facts and training content = authority</li>
+                                <li>Long-term client relationships vs one-time sales</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card action-card">
+                        <div class="card-title"><span class="emoji">🎬</span> Content Ideas</div>
+                        <div class="card-content">
+                            <strong>Property Management Topics</strong>
+                            <ul>
+                                <li>Rental yield calculations by area</li>
+                                <li>Tenant screening process in Dubai</li>
+                                <li>Maintenance cost breakdowns</li>
+                                <li>RERA regulations explained</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="priority-table">
+                    <thead>
+                        <tr>
+                            <th>Action Item</th>
+                            <th>Why It Matters</th>
+                            <th>Timeline</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Create 5 educational posts about property management basics</td>
+                            <td>Establish authority in underserved niche</td>
+                            <td>Week 1-2</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Share real property management case studies with numbers</td>
+                            <td>Build trust with data and facts</td>
+                            <td>Ongoing</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Post 2x per week consistently on this topic</td>
+                            <td>Algorithm recognition as PM expert</td>
+                            <td>3-4 months</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Create reels showing before/after property conditions</td>
+                            <td>Visual proof of management value</td>
+                            <td>Week 3-4</td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="chart-container">
+                    <h4 style="margin-bottom: 20px; color: #4a5568;">Your Market Opportunity</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="trevorChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REBECCA -->
+            <div class="team-member">
+                <div class="member-header">
+                    <div class="member-avatar">R</div>
+                    <div class="member-info">
+                        <h3>Rebecca</h3>
+                        <p class="member-role">Content Creator</p>
+                    </div>
+                </div>
+
+                <div class="quote-section">
+                    The customer handover video was very good, as was the podcast intro video. Create carousel posts, single posts and reels - mix them together. Consistency is also very important.
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card strength-card">
+                        <div class="card-title"><span class="emoji">✅</span> What's Working</div>
+                        <div class="card-content">
+                            <strong>High-Quality Content Proven</strong>
+                            <ul>
+                                <li>Customer handover videos perform well</li>
+                                <li>Podcast intro shows good production value</li>
+                                <li>You already know what quality looks like</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card opportunity-card">
+                        <div class="card-title"><span class="emoji">💡</span> Your Challenge</div>
+                        <div class="card-content">
+                            <strong>Consistency Over Quantity</strong>
+                            <ul>
+                                <li>2-3 posts per week maximum - not more!</li>
+                                <li>Mix carousels, reels, and single posts</li>
+                                <li>Regular posting beats occasional perfection</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card action-card">
+                        <div class="card-title"><span class="emoji">🎬</span> Action Plan</div>
+                        <div class="card-content">
+                            <strong>Simple Weekly Formula</strong>
+                            <ul>
+                                <li>2-3 posts per week total (mixed content)</li>
+                                <li>Mix: Reels + Carousels + Single Posts</li>
+                                <li>Example: 1 Reel, 1 Carousel, 1 Single Post</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="priority-table">
+                    <thead>
+                        <tr>
+                            <th>Action Item</th>
+                            <th>Why It Matters</th>
+                            <th>Timeline</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Create more customer handover content (proven winner)</td>
+                            <td>Replicate what already works</td>
+                            <td>Immediate</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Post 2-3 times per week MAXIMUM - mixed content types</td>
+                            <td>Some team members post 5x/week - too much! Quality over quantity</td>
+                            <td>Week 1</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Batch-create content on Sundays for the week</td>
+                            <td>Remove daily decision fatigue</td>
+                            <td>Ongoing</td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                        </tr>
+                        <tr>
+                            <td>Don't add new content types - master current ones</td>
+                            <td>Focus beats experimentation</td>
+                            <td>3 months</td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- LAURENA -->
+            <div class="team-member">
+                <div class="member-header">
+                    <div class="member-avatar">L</div>
+                    <div class="member-info">
+                        <h3>Laurena</h3>
+                        <p class="member-role">Content Strategist</p>
+                    </div>
+                </div>
+
+                <div class="quote-section">
+                    POV videos are good, especially of the environment and space, like the Town Square video. Determine your target. If you want to work more on Town Square, let everyone know you as an expert in this field. Who is your target? England, America, the whole world? Plan accordingly. You also need to test single posts and carousels to see which one works best.
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card strength-card">
+                        <div class="card-title"><span class="emoji">✅</span> What's Working</div>
+                        <div class="card-content">
+                            <strong>POV Videos Performing Well</strong>
+                            <ul>
+                                <li>Town Square video shows your strength</li>
+                                <li>Environment and space content resonates</li>
+                                <li>Good eye for visual storytelling</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card opportunity-card">
+                        <div class="card-title"><span class="emoji">💡</span> Missing Strategy</div>
+                        <div class="card-content">
+                            <strong>Need Clear Positioning</strong>
+                            <ul>
+                                <li>Pick ONE area to dominate (e.g., Town Square)</li>
+                                <li>Define ONE primary target market</li>
+                                <li>Test content formats systematically</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card action-card">
+                        <div class="card-title"><span class="emoji">🎬</span> Your Path</div>
+                        <div class="card-content">
+                            <strong>Become THE Town Square Expert</strong>
+                            <ul>
+                                <li>Or pick another area and own it completely</li>
+                                <li>Choose UK or US as primary target</li>
+                                <li>Test: 3 reels vs 3 carousels vs 3 posts</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="priority-table">
+                    <thead>
+                        <tr>
+                            <th>Action Item</th>
+                            <th>Why It Matters</th>
+                            <th>Timeline</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>DECIDE: Pick one area to specialize (Town Square recommended)</td>
+                            <td>Riches are in niches - expert status</td>
+                            <td>This Week</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>DECIDE: Choose primary target market (UK or US)</td>
+                            <td>Content timing and messaging depends on this</td>
+                            <td>This Week</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Test content formats: Post 3 reels, 3 carousels, 3 single posts</td>
+                            <td>Data-driven decision on what works for YOU</td>
+                            <td>Week 2-3</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Create 10 POV videos of your chosen area from different angles</td>
+                            <td>Build comprehensive area expertise</td>
+                            <td>Month 1</td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="chart-container">
+                    <h4 style="margin-bottom: 20px; color: #4a5568;">Content Format Testing Plan</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="laurenaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ALI -->
+            <div class="team-member">
+                <div class="member-header">
+                    <div class="member-avatar">A</div>
+                    <div class="member-info">
+                        <h3>Ali</h3>
+                        <p class="member-role">Arabic Market Specialist</p>
+                    </div>
+                </div>
+
+                <div class="quote-section">
+                    Definitely record an Arabic video. You don't have much competition at all and you can easily become an authority on Arabic languages. Set your target in this sector, we still have a lot of good Arab investors.
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card strength-card">
+                        <div class="card-title"><span class="emoji">✅</span> Massive Opportunity</div>
+                        <div class="card-content">
+                            <strong>Blue Ocean Market</strong>
+                            <ul>
+                                <li>Minimal competition in Arabic content</li>
+                                <li>Large pool of Arab investors in Dubai</li>
+                                <li>You can dominate this space quickly</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card opportunity-card">
+                        <div class="card-title"><span class="emoji">💡</span> Market Reality</div>
+                        <div class="card-content">
+                            <strong>Underserved Wealthy Market</strong>
+                            <ul>
+                                <li>GCC investors are highly active in Dubai</li>
+                                <li>Most content is in English - gap exists</li>
+                                <li>Trust builds faster in native language</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card action-card">
+                        <div class="card-title"><span class="emoji">🎬</span> Your Strategy</div>
+                        <div class="card-content">
+                            <strong>Become Arabic Authority</strong>
+                            <ul>
+                                <li>Start with Arabic video content immediately</li>
+                                <li>Target: Saudi, Kuwait, Qatar investors</li>
+                                <li>Mix Arabic/English in captions for reach</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="priority-table">
+                    <thead>
+                        <tr>
+                            <th>Action Item</th>
+                            <th>Why It Matters</th>
+                            <th>Timeline</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Create first 5 Arabic videos about Dubai real estate</td>
+                            <td>Claim your position before competition arrives</td>
+                            <td>Week 1</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Focus on GCC investor concerns and preferences</td>
+                            <td>Speak to their specific needs</td>
+                            <td>Ongoing</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Use Arabic hashtags + English hashtags (3 total)</td>
+                            <td>Reach both markets simultaneously</td>
+                            <td>Every post</td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                        </tr>
+                        <tr>
+                            <td>Post at 12 PM and 9 PM Dubai time (GCC prime time)</td>
+                            <td>When your target audience is most active</td>
+                            <td>Immediate</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="chart-container">
+                    <h4 style="margin-bottom: 20px; color: #4a5568;">Arabic Content Market Gap</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="aliChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MARTIN -->
+            <div class="team-member">
+                <div class="member-header">
+                    <div class="member-avatar">M</div>
+                    <div class="member-info">
+                        <h3>Martin</h3>
+                        <p class="member-role">Content Producer</p>
+                    </div>
+                </div>
+
+                <div class="quote-section">
+                    Consistency is very important. Post 2-3 posts regularly every week, but also mix them up. Reels, carousels, photos, etc. If you can make a cover, your page will have a certain order and a template, it will be very good. Educational and guidance posts, give data, along with the projects that it introduces, have better feedback. Your captions are good.
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card strength-card">
+                        <div class="card-title"><span class="emoji">✅</span> Current Strengths</div>
+                        <div class="card-content">
+                            <strong>Good Foundation</strong>
+                            <ul>
+                                <li>Your captions are already effective</li>
+                                <li>You understand content variety</li>
+                                <li>Educational content gets good feedback</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card opportunity-card">
+                        <div class="card-title"><span class="emoji">💡</span> Missing Elements</div>
+                        <div class="card-content">
+                            <strong>Consistency + Visual System</strong>
+                            <ul>
+                                <li>Need regular 2-3 posts per week schedule</li>
+                                <li>Page lacks cohesive visual template</li>
+                                <li>Cover images would improve brand recognition</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card action-card">
+                        <div class="card-title"><span class="emoji">🎬</span> Quick Wins</div>
+                        <div class="card-content">
+                            <strong>Add Structure</strong>
+                            <ul>
+                                <li>Create branded cover templates in Canva</li>
+                                <li>Mix: educational + project + data posts</li>
+                                <li>Lock in Mon/Wed/Fri posting schedule</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="priority-table">
+                    <thead>
+                        <tr>
+                            <th>Action Item</th>
+                            <th>Why It Matters</th>
+                            <th>Timeline</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Design 3-5 cover templates for different content types</td>
+                            <td>Professional, consistent brand appearance</td>
+                            <td>Week 1</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Commit to 2-3 posts per week (specific days)</td>
+                            <td>Consistency is the priority feedback</td>
+                            <td>Start Week 1</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Create educational posts with data and facts</td>
+                            <td>These get your best feedback already</td>
+                            <td>Ongoing</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Weekly mix: 2-3 posts total (1 Reel + 1 Carousel + 1 Single Post)</td>
+                            <td>Variety keeps audience engaged without overwhelming</td>
+                            <td>Ongoing</td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PRADEEP -->
+            <div class="team-member">
+                <div class="member-header">
+                    <div class="member-avatar">P</div>
+                    <div class="member-info">
+                        <h3>Pradeep</h3>
+                        <p class="member-role">Company Page Manager</p>
+                    </div>
+                </div>
+
+                <div class="quote-section">
+                    Some of your videos are not of good quality because you downloaded them and it has a negative impact. For collaboration, be sure to coordinate with company page or guys. I don't accept anything on the company page because I have a specific format, unless it is coordinated with me and I make the cover myself. I don't want to ruin the shape of the company page.
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card strength-card">
+                        <div class="card-title"><span class="emoji">✅</span> Your Strength</div>
+                        <div class="card-content">
+                            <strong>Brand Standards Guardian</strong>
+                            <ul>
+                                <li>You understand brand consistency importance</li>
+                                <li>You have a clear visual format vision</li>
+                                <li>Protection of company page quality</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card opportunity-card">
+                        <div class="card-title"><span class="emoji">💡</span> Current Issues</div>
+                        <div class="card-content">
+                            <strong>Quality Control Problems</strong>
+                            <ul>
+                                <li>Downloaded videos lose quality significantly</li>
+                                <li>Collaboration content doesn't meet standards</li>
+                                <li>Need better team coordination process</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card action-card">
+                        <div class="card-title"><span class="emoji">🎬</span> Solutions</div>
+                        <div class="card-content">
+                            <strong>Quality First Approach</strong>
+                            <ul>
+                                <li>Get original files, never download videos</li>
+                                <li>Create collaboration approval process</li>
+                                <li>Share cover templates with team</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="priority-table">
+                    <thead>
+                        <tr>
+                            <th>Action Item</th>
+                            <th>Why It Matters</th>
+                            <th>Timeline</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>STOP downloading videos - always use original quality files</td>
+                            <td>Downloaded videos destroy quality and brand image</td>
+                            <td>Immediate</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Create collaboration approval workflow (review before posting)</td>
+                            <td>Maintain company page standards</td>
+                            <td>Week 1</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Design and share cover template library with team</td>
+                            <td>Enable team to meet your standards</td>
+                            <td>Week 2</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Weekly team check-in on collaboration content plans</td>
+                            <td>Coordinate before posting, not after</td>
+                            <td>Ongoing</td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SHANIA -->
+            <div class="team-member">
+                <div class="member-header">
+                    <div class="member-avatar">S</div>
+                    <div class="member-info">
+                        <h3>Shania</h3>
+                        <p class="member-role">Personal Brand Builder</p>
+                    </div>
+                </div>
+
+                <div class="quote-section">
+                    Please get content and stay away from being perfect. Your personal brand will not grow if you don't have content. Not just a fun video. Explain the project, show it. Tell me your analysis. Get a fun video too!
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card strength-card">
+                        <div class="card-title"><span class="emoji">✅</span> Potential</div>
+                        <div class="card-content">
+                            <strong>You Have the Capability</strong>
+                            <ul>
+                                <li>You can create fun, engaging content</li>
+                                <li>Personal brand opportunity is there</li>
+                                <li>Right instincts about video content</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card opportunity-card">
+                        <div class="card-title"><span class="emoji">💡</span> The Problem</div>
+                        <div class="card-content">
+                            <strong>Perfectionism Paralysis</strong>
+                            <ul>
+                                <li>Waiting for perfect content = no content</li>
+                                <li>Fun videos alone won't build authority</li>
+                                <li>Need mix of entertainment + education</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card action-card">
+                        <div class="card-title"><span class="emoji">🎬</span> The Fix</div>
+                        <div class="card-content">
+                            <strong>Done > Perfect</strong>
+                            <ul>
+                                <li>Post 3x per week minimum, imperfect is fine</li>
+                                <li>Mix: 1 fun + 1 educational + 1 project showcase</li>
+                                <li>Share your analysis and thoughts</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="priority-table">
+                    <thead>
+                        <tr>
+                            <th>Action Item</th>
+                            <th>Why It Matters</th>
+                            <th>Timeline</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Post ANYTHING this week - even if imperfect</td>
+                            <td>Break perfectionism cycle immediately</td>
+                            <td>This Week</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Create content calendar: Mon = Fun, Wed = Project, Fri = Analysis</td>
+                            <td>Structure prevents overthinking</td>
+                            <td>Week 1</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Record 3 project explanation videos (5-10 min each)</td>
+                            <td>Show expertise, not just personality</td>
+                            <td>Week 2-3</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>Share your personal analysis/opinion on market trends</td>
+                            <td>Build thought leadership and trust</td>
+                            <td>Ongoing</td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                        </tr>
+                        <tr>
+                            <td>Remember: 80% good posted beats 100% perfect never posted</td>
+                            <td>Personal brand grows through volume + consistency</td>
+                            <td>Daily mindset</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="chart-container">
+                    <h4 style="margin-bottom: 20px; color: #4a5568;">Content Mix for Personal Brand Growth</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="shaniaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>📞 Always Here to Help</h3>
+            <p>If you need any help with implementing these strategies, I'm always available to make sure things go smoothly and we achieve results together.</p>
+            <p style="margin-top: 20px;"><strong>— Omid Za, Head of Marketing</strong></p>
+            <p style="margin-top: 10px; opacity: 0.8;">Veer & Sant Real Estate | Marketing Department</p>
+        </div>
+    </div>
+
+    <script>
+        // Trevor's Chart - Market Opportunity
+        const ctxTrevor = document.getElementById('trevorChart').getContext('2d');
+        new Chart(ctxTrevor, {
+            type: 'bar',
+            data: {
+                labels: ['Buying Content', 'Selling Content', 'Investment Content', 'Property Management'],
+                datasets: [{
+                    label: 'Competition Level',
+                    data: [95, 90, 85, 15],
+                    backgroundColor: ['#ef4444', '#f59e0b', '#f59e0b', '#059669'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Laurena's Chart - Content Testing
+        const ctxLaurena = document.getElementById('laurenaChart').getContext('2d');
+        new Chart(ctxLaurena, {
+            type: 'doughnut',
+            data: {
+                labels: ['Reels (Week 1)', 'Carousels (Week 2)', 'Single Posts (Week 3)'],
+                datasets: [{
+                    data: [33, 33, 34],
+                    backgroundColor: ['#667eea', '#f59e0b', '#059669'],
+                    borderWidth: 3,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 15
+                        }
+                    }
+                }
+            }
+        });
+
+        // Ali's Chart - Market Gap
+        const ctxAli = document.getElementById('aliChart').getContext('2d');
+        new Chart(ctxAli, {
+            type: 'bar',
+            data: {
+                labels: ['English Content', 'Arabic Content'],
+                datasets: [
+                    {
+                        label: 'Supply (Creators)',
+                        data: [85, 15],
+                        backgroundColor: '#667eea'
+                    },
+                    {
+                        label: 'Demand (Investors)',
+                        data: [45, 55],
+                        backgroundColor: '#059669'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Shania's Chart - Content Mix
+        const ctxShania = document.getElementById('shaniaChart').getContext('2d');
+        new Chart(ctxShania, {
+            type: 'pie',
+            data: {
+                labels: ['Fun/Entertainment', 'Project Explanations', 'Market Analysis', 'Personal Stories'],
+                datasets: [{
+                    data: [25, 35, 25, 15],
+                    backgroundColor: ['#f59e0b', '#667eea', '#059669', '#ec4899'],
+                    borderWidth: 3,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 15
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
